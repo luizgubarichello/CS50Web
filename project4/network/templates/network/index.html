@@ -1,0 +1,67 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div id="posts-header" class="container-fluid">
+        <h1>All Posts</h1>
+    </div>
+    <div id="make-post" class="container-fluid">
+        <div class="row border m-1" id="make-post-2">
+            <textarea class="w-100 mt-3 mr-3 ml-3" id="post-body" name="post-body" placeholder="What's happening?" maxlength="280"></textarea>
+            <button class="btn btn-dark mr-3 mb-3 ml-3 mt-1" id="post-button">Post</button>
+        </div>
+    </div>
+    <div id="all-posts" class="container-fluid">
+        {% for post in posts %}
+            <div class="row border m-1">
+                <div class="col mt-2">
+                    <h6>{{ post.user.username }}</h6> · <small class="text-muted">{{ post.timestamp }}</small>
+                </div>
+                <div class="w-100"></div>
+                <div class="col mb-1">
+                    <span>{{ post.body }}</span>
+                </div>
+                <div class="w-100"></div>
+                <div class="col mb-2" id="div-interactive">
+                    <button class="btn btn-outline-dark btn-sm" id="like-button">♡♥️ <span id="like-count">0</span></button>
+                    <button class="btn btn-outline-dark btn-sm ml-1" id="comment-button">Comment</button>
+                </div>
+            </div>
+        {% empty %}
+            No posts yet.
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        // Wait for DOM to fully load
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // When the post button is clicked
+            document.querySelector('#post-button').addEventListener('click', () => {
+
+                // Send a POST request to new_post route containing the body of the post
+                fetch('/new_post', {
+                    method: 'POST',
+                    headers : {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        body: document.querySelector('#post-body').value
+                    })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result)
+                })
+
+                // Clear the post text area
+                document.querySelector('#post-body').value = '';
+
+            });
+
+        });
+    </script>
+{% endblock %}

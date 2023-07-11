@@ -1,0 +1,48 @@
+body {
+    font-size: 14px;
+    font-family: arial,sans-serif;
+    color: #202124;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+button[type="submit"] {
+    background-color: #4d90fe;
+    color: white;
+}
+
+button[type="submit"]:hover {
+    box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+    background-color: #8ab4f8;
+    border: 1px solid #dadce0;
+    color: white;
+}
+
+input[type="text"] {
+    text-align: left;
+    display: inline-block;
+    min-width: 167px;
+    min-height: 41px;
+    vertical-align: middle;
+    width: 50%;
+    font-size: 14px;
+}
+
+#adv-label {
+    color: #d93025;
+    font-weight: bold;
+    font-size: 20px;
+    margin-left: 36px;
+    margin-top: 15px;
+}
+
+#fp-label {
+    font-size: 18px;
+    margin-left: 36px;
+    margin-top: 20px;
+}

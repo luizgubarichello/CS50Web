@@ -1,0 +1,104 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if auction %}
+        <div class="mb-3">
+            <h2><b>{{ auction.l_title|capfirst }}</b></h2>
+            {% if user.is_authenticated %}
+                <form action="{% url 'watchlist' %}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-secondary btn-sm" name="wl" value="{{ auction.id }}" type="submit">{{ wl_msg }}</button>
+                </form>
+            {% endif %}
+        </div>
+        {% if auction.l_imglink %}
+            <img src="{{ auction.l_imglink }}" alt="product_img" class="img-fluid" style="max-height: 400px; max-width: 80%">
+        {% endif %}
+        <div class="mb-3 mt-3">
+            <b>Price: </b>${{ auction.l_price|floatformat:2 }}
+        </div>
+        {% if user.is_authenticated %}
+            {% if auction.l_status %}
+                <div class="mb-3">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {% if auction.l_user == user %}
+                            <div class="mb-1">
+                                {% if bid_msg %}<b>{{ bid_msg }}</b>{% endif %}
+                            </div>
+                            <button class="btn btn-primary" name="btn_type" value="creator" type="submit">Close Auction</button>
+                        {% else %}
+                            <div class="mb-1">
+                                {% if bid_msg %}<b>{{ bid_msg }}</b>{% endif %}
+                            </div>
+                            <div class="input-group p-0 mb-1 col-6">
+                                <span class="input-group-text">$</span>
+                                <input class="form-control" required type="number" name="bid_price" step=".01" placeholder="Your bid">
+                                <button class="btn btn-primary" name="btn_type" value="bidder" type="submit">Bid</button>
+                            </div>
+                        {% endif %}
+                    </form>
+                </div>
+            {% else %}
+                <div class="mb-3">
+                    <b>This auction is closed!</b>
+                    {% if bid_msg %}
+                        <div class="mb-3">
+                            <b>{{ bid_msg }}</b>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            {% if auction.l_status %}
+                <div class="mb-3">
+                    Login to bid.
+                </div>
+            {% else %}
+                <div class="mb-3">
+                    <b>This auction is closed!</b>
+                </div>
+            {% endif %}
+        {% endif %}
+        <div class="mb-3">
+            {{ auction.l_description|capfirst }}
+        </div>
+        <div class="mb-3">
+            <small class="text-muted">Created {{ auction.l_timestamp|date:"d/m/Y P e" }} by {{ auction.l_user}}</small>
+        </div>
+        <hr>
+        {% if user.is_authenticated %}
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-1">
+                    <textarea rows="4" class="form-control" required name="comment" placeholder="Comment here..." maxlength="256" style="width: 400px;"></textarea>
+                </div>
+                <div>
+                    <button class="btn btn-dark" name="btn_type" value="comment" type="submit">Comment</button>
+                </div>
+            </form>
+            <hr>
+        {% else %}
+            Login to Comment
+            <hr>
+        {% endif%}
+        {% for comment in comments %}
+            <div class="mb-3">
+                {{ comment.comment|capfirst }}
+            </div>
+            <div class="mb-3">
+                <small class="text-muted">Comment by: {{ comment.user }}</small>
+            </div>
+            <hr>
+        {% empty %}
+            <div class="mb-3">
+                <small class="text-muted">No comments yet.</small>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="mb-3">
+            Invalid item.
+        </div>
+        <hr>
+    {% endif %}
+{% endblock %}

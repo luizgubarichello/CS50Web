@@ -1,0 +1,17 @@
+.body {
+    max-width: 700px;
+    margin: auto;
+}
+
+#post-body {
+    height: 80px;
+    border-style: none;
+}
+
+div {
+    border-radius: 5px;
+}
+
+h6 {
+    display: inline;
+}

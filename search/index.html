@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Google</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+        <link href="styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container-fluid vh-100">
+            <!-- Navbar -->
+            <ul class="m-3 nav">
+                <li class="nav-item ms-auto">
+                    <a class="nav-link text-dark" href="images.html">Images</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="advanced.html">Advanced Search</a>
+                </li>
+            </ul>
+            <!-- Content -->
+            <div class="container-fluid text-center h-100 position-relative">
+                <div class="position-absolute start-50 translate-middle" style="top:38%;">
+                    <img src="google_logo.png">
+                    <form action="https://www.google.com/search" class="mt-4" method="get">
+                        <input autocomplete="off" autofocus class="form-control form-control-lg mb-4 mx-auto w-50" name="q" placeholder="" type="text">
+                        <button class="btn btn-light" type="submit">Google Search</button>
+                        <button class="btn btn-light" name="btnI" type="submit">I'm Feeling Lucky</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

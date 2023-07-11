@@ -1,0 +1,3 @@
+validate_docbr
+crispy-bootstrap4
+django-crispy-forms

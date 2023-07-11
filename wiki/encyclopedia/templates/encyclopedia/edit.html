@@ -1,0 +1,31 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia: Edit {{ entry }}
+{% endblock %}
+
+{% block body %}
+    {% if entry_content == none %}
+
+        The requested page was not found.
+
+    {% else %}
+
+        <h1>Edit {{ entry }}</h1>
+
+        <form method="POST" id="ep_form" name="ep_form">
+            {% csrf_token %}
+            <div>
+                <b>{{ msg }}</b>
+            </div>
+            <div>
+                <textarea required form="ep_form" id="edit_body" name="edit_body" placeholder="Your text here">{{ entry_content }}</textarea>
+            </div>
+            <div>
+                <button type="submit">Save Page</button>
+            </div>
+        </form>
+
+    {% endif %}
+
+{% endblock %}

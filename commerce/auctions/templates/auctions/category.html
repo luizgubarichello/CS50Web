@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Listings in {{ category }}</h2>
+    <hr>
+    <div class="container text-left m-0">
+        {% for item in itens reversed %}
+            <div class="row align-items-start" style="height: 250px;">
+                {% if item.l_imglink %}
+                    <div class="col-3 text-center align-self-center">
+                        <img src="{{ item.l_imglink }}" alt="product_img" class="img-thumbnail" style="max-height: 220px;">
+                    </div>
+                {% endif %}
+                <div class="col-8">
+                    <div class="mb-3">
+                        <h5><a href="{% url 'item' id=item.id %}">{{ item.l_title|capfirst }}</a></h5>
+                    </div>
+                    <div class="mb-3">
+                        <p><b>Price: </b>${{ item.l_price|floatformat:2 }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <p>{{ item.l_description|capfirst }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <small class="text-muted">Created {{ item.l_timestamp|date:"d/m/Y P e" }}</small>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        {% empty %}
+            No itens in this category.
+        {% endfor %}
+    </div>
+
+{% endblock %}

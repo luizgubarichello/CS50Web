@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Create Listing</h2>
+    <form action="" name="listing" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-8">
+                <div class="mb-3">
+                    <input class="form-control" required type="text" name="l_title" placeholder="What's your product?" maxlength="64">
+                    <small class="text-muted">Maximum of 64 characters.</small>
+                </div>
+                <div class="mb-3">
+                    <textarea rows="4" class="form-control" required name="l_description" placeholder="Describe your product here..." maxlength="512"></textarea>
+                    <small class="text-muted">Maximum of 512 characters.</small>
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" required type="number" name="l_price" step=".01" placeholder="Starting bid">
+                </div>
+                <div class="mb-3">
+                    <input class="form-control" type="url" name="l_imgurl" placeholder="Link of an image">
+                </div>
+                <div class="mb-3">
+                    <select class="form-control" name="l_category" value="">
+                        <option selected hidden value="0">Select a category</option>
+                        {% for category in categories|dictsort:"name" %}
+                            <option value="{{ category.id }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-primary" type="submit">Place Listing</button>
+                </div>
+            </div>
+        </div>
+    </form>
+{% endblock %}

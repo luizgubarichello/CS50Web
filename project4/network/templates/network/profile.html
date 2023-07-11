@@ -1,0 +1,53 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div id="profile-header" class="container-fluid">
+        <div class="row border m-1">
+            <div class="col">
+                <div class="row mr-1 ml-1 mt-2">
+                    <div class="col-6 p-0"><h4>{{ user.username }}</h4></div>
+                    <div class="col-6 p-0 text-right"><button class="btn btn-outline-dark btn-sm ml-1" id="follow-button">Follow</button></div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <div class="row mr-1 ml-1 mb-2">
+                    <div class="col-3 p-0">{{ followage }} Following</div>
+                    <div class="col-3 p-0">{{ followers }} Followers</div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+            <div class="col">
+                <div class="row mr-1 ml-1 mb-2">
+                    <small class="text-muted">Joined {{ user.date_joined }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div id="user-posts" class="container-fluid">
+        {% for post in posts %}
+            <div class="row border m-1">
+                <div class="col mt-2">
+                    <h6>{{ post.user.username }}</h6> · <small class="text-muted">{{ post.timestamp }}</small>
+                </div>
+                <div class="w-100"></div>
+                <div class="col mb-1">
+                    <span>{{ post.body }}</span>
+                </div>
+                <div class="w-100"></div>
+                <div class="col mb-2" id="div-interactive">
+                    <button class="btn btn-outline-dark btn-sm" id="like-button">♡♥️ <span id="like-count">0</span></button>
+                    <button class="btn btn-outline-dark btn-sm ml-1" id="comment-button">Comment</button>
+                </div>
+            </div>
+        {% empty %}
+            No posts yet.
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

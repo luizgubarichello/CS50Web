@@ -1,0 +1,42 @@
+body {
+    font-size: 14px;
+    font-family: arial,sans-serif;
+    color: #202124;
+    margin: 0;
+    padding: 0;
+}
+
+.container-fluid {
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+button[type="submit"]:hover {
+    box-shadow: 0 1px 1px rgb(0 0 0 / 10%);
+    background-color: #f8f9fa;
+    border: 1px solid #dadce0;
+    color: #202124;
+}
+
+input[type="text"] {
+    height: 44px;
+    background: #fff;
+    border: 1px solid #dfe1e5;
+    box-shadow: none;
+    border-radius: 24px;
+    margin: 0 auto;
+    max-width: 584px;
+    min-width: 500px;
+    font-size: 14px;
+}
+
+input[type="text"]:hover, input[type="text"]:focus {
+    box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+    background-color: #ffffff;
+    border-color: rgba(233, 255, 229, 0)
+}
+
+#adv-label {
+    color: #d93025;
+    font-size: 20px;
+}

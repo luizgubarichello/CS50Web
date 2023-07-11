@@ -1,0 +1,31 @@
+{% extends "main/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <div class="container-fluid" id="container-main">
+
+        <div class="row" id="row-filter">
+            <div class="col col-filter">
+                <select id="strat-filter" class="selectpicker" multiple title="Filtre por estrategias" data-selected-text-format="count" data-size="5">
+                    {% for strategy in strategies %}
+                        <option class="multi-select-option">{{ strategy.name }}</option>
+                    {% endfor %}
+                </select>
+                <input id="datepicker" placeholder="   Filtre por data">
+            </div>
+        </div>
+
+        <div class="row justify-content-center" id="row-main">
+            
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+<script src="{% static 'main/index.js' %}"></script>
+
+{% endblock %}
