@@ -65,7 +65,7 @@ def calls_api(request):
 
     call = {
         'symbol': 'WIN1!',
-        'strategy': 'JACK_SPARROW',
+        'strategy': 'HANCOCK',
         'direction': 'buy',
         'market_position': 'long',
         'prev_market_position': 'flat',
@@ -75,8 +75,26 @@ def calls_api(request):
         'stop_price': 104500,
     }
 
-    strategy = Strategy.objects.get(key=call['strategy'])
-    symbol = Symbol.objects.get(ticker=call['symbol'])
+    strategy, strategy_created = Strategy.objects.get_or_create(
+        key=call['strategy'],
+        defaults={
+            'name': call['strategy'].replace('_', ' ').title(),
+            'stype': 'DT',
+        },
+    )
+
+    if strategy_created:
+        StrategyParam.objects.create(
+            strategy=strategy,
+            calls_currency='BRL',
+        )
+
+    symbol, symbol_created = Symbol.objects.get_or_create(
+        ticker=call['symbol'],
+        defaults={
+            'name': call['symbol'],
+        },
+    )
 
     try:
         last_call = StrategyCall.objects.filter(strategy=strategy,symbol=symbol).latest('id')

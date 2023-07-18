@@ -18,9 +18,17 @@ It goes beyond the scope of previous projects in CS50WEB by having:
 
 # How to Run
 
+Install project dependencies: `pip3 install -r requirements.txt`
+
+Migrate the DB: `python3 manage.py migrate`
+
 On your terminal, run `python3 manage.py runserver`
 
-Create an account, then login. There you can see every call given by the system.
+Create an account, then login
+
+Go to the route `/new_call`
+
+Go back to the route `/` -> You should see one call now
 
 You can filter by strategy or date.
 
