@@ -7,6 +7,7 @@ from . import validators
 # Create your models here.
 class User(AbstractUser):
     cpf = models.CharField(max_length=11, validators=[validators.validate_cpf], unique=True)
+    REQUIRED_FIELDS = ['cpf']
 
 
 class Strategy(models.Model):
