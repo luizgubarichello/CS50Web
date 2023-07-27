@@ -1,0 +1,30 @@
+{% extends "main/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+    <div class="container-fluid" id="container-main">
+        {% if status %}
+            <div>{{ status }}</div>
+        {% endif %}
+        <form action="{% url 'calls_api' %}" method="post">
+            <input autofocus class="form-control" type="text" name="symbol" placeholder="Symbol">
+            <input class="form-control" type="text" name="strategy" placeholder="Strategy">
+            <input class="form-control" type="text" name="direction" placeholder="Direction">
+            <input class="form-control" type="text" name="market_position" placeholder="Market Position">
+            <input class="form-control" type="text" name="prev_market_position" placeholder="Previous Market Position">
+            <input class="form-control" type="text" name="comment" placeholder="Comment">
+            <input class="form-control" type="number" name="order_price" placeholder="Order Price">
+            <input class="form-control" type="number" name="target_price" placeholder="Target Price">
+            <input class="form-control" type="number" name="stop_price" placeholder="Stop Price">
+            <input class="btn btn-primary" type="submit" value="Enviar">
+            <input class="btn btn-primary" type="reset">
+        </form>
+
+    </div>
+
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}

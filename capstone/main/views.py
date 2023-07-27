@@ -62,17 +62,24 @@ def calls(request, page_id):
 
 @csrf_exempt
 def calls_api(request):
+    if request.method == "GET":
+        return render(request, "main/new_call.html")
 
+    if request.method != "POST":
+        return JsonResponse({
+            'status': 'invalid request'
+        })
+    
     call = {
-        'symbol': 'WIN1!',
-        'strategy': 'HANCOCK',
-        'direction': 'buy',
-        'market_position': 'long',
-        'prev_market_position': 'flat',
-        'comment': '',
-        'order_price': 104000,
-        'target_price': 105000,
-        'stop_price': 104500,
+        'symbol': request.POST['symbol'],
+        'strategy': request.POST['strategy'],
+        'direction': request.POST['direction'],
+        'market_position': request.POST['market_position'],
+        'prev_market_position': request.POST['prev_market_position'],
+        'comment': request.POST['comment'],
+        'order_price': float(request.POST['order_price']),
+        'target_price': float(request.POST['target_price']),
+        'stop_price': float(request.POST['stop_price']),
     }
 
     strategy, strategy_created = Strategy.objects.get_or_create(
@@ -107,7 +114,7 @@ def calls_api(request):
         if last_call == 'first_trade':
             pass
         elif last_call.trade_status == 'open':
-            return JsonResponse({
+            return render(request, "main/new_call.html", {
                 'status': 'trade already open'
             })
 
@@ -125,7 +132,7 @@ def calls_api(request):
 
         new_call.save()
 
-        return JsonResponse({
+        return render(request, "main/new_call.html", {
             'status': 'trade entry'
         })
 
@@ -133,7 +140,7 @@ def calls_api(request):
     elif call['prev_market_position'] != 'flat' and call['market_position'] == 'flat':
 
         if last_call.trade_status != 'open':
-            return JsonResponse({
+            return render(request, "main/new_call.html", {
                 'status': f'trade {last_call.trade_status}'
             })
 
@@ -142,21 +149,21 @@ def calls_api(request):
         elif call['direction'] == 'sell' and last_call.direction == 'Buy':
             result = (call['order_price'] - last_call.entry_price)
         else:
-            return JsonResponse({
+            return render(request, "main/new_call.html", {
                 'status': 'invalid call'
             })
-
+        
         last_call.result = result
         last_call.trade_status = 'closed'
         last_call.save()
 
-        return JsonResponse({
+        return render(request, "main/new_call.html", {
             'status': last_call.result
         })
 
     # Other trade types
     else:
-        return JsonResponse({
+        return render(request, "main/new_call.html", {
             'status': 'trade not supported'
         })
 
@@ -192,9 +199,9 @@ def register(request):
         if form.is_valid():
             form.save()
             return redirect("main_home")
-
     else:
         form = UserRegisterForm()
+        
     return render(request, "main/register.html", {
         'form': form
     })
